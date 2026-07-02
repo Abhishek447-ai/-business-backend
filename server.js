@@ -45,7 +45,7 @@ app.post("/api/register-project", async (req, res) => {
 
     // Send data to n8n
   const response = await axios.post(
-  "https://abhishekokali100.app.n8n.cloud/webhook-test/register-project",
+  "https://abhishekokali100.app.n8n.cloud/webhook/register-project",
   req.body
 );
 
