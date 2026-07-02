@@ -44,10 +44,7 @@ app.post("/api/register-project", async (req, res) => {
     await project.save();
 
     // Send data to n8n
-    await axios.post(
-      "https://abhishekokali100.app.n8n.cloud/webhook-test/register-project",
-      req.body
-    );
+  
 
     res.status(201).json({
       success: true,
