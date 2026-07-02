@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Review = require("./models/Review");
+const Project = require("./models/Project");
 require("dotenv").config();
 
 const app = express();
@@ -34,7 +35,27 @@ app.post("/api/reviews", async (req, res) => {
     });
   }
 });
+app.post("/api/register-project", async (req, res) => {
+  try {
 
+    const project = new Project(req.body);
+
+    await project.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Project Registered Successfully",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+});
 app.get("/api/reviews", async (req, res) => {
   try {
     const reviews = await Review.find().sort({
