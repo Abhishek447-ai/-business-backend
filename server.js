@@ -55,13 +55,16 @@ app.post("/api/register-project", async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+  console.error("ERROR:", error);
+  console.error("Response:", error.response?.data);
+  console.error("Status:", error.response?.status);
 
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+  res.status(500).json({
+    success: false,
+    message: error.message,
+    details: error.response?.data,
+  });
+}
 });
 app.get("/api/reviews", async (req, res) => {
   try {

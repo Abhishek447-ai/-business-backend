@@ -14,6 +14,10 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    semister: {
+      type: String,
+      required: true
+    },
     projectTitle: {
       type: String,
       required: true,
