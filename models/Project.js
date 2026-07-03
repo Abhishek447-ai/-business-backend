@@ -23,11 +23,9 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    database: {
-      type: String,
-      required: true,
+   
     },
-  },
+  
   {
     timestamps: true,
   }
