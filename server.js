@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Review = require("./models/Review");
 const Project = require("./models/Project");
-const axios = require("axios");
 require("dotenv").config();
 
 
@@ -39,16 +38,14 @@ app.post("/api/reviews", async (req, res) => {
 });
 app.post("/api/register-project", async (req, res) => {
   try {
-    // Save to MongoDB
     const project = new Project(req.body);
-    await project.save();
 
-    // Send data to n8n
- const response = await axios.post(
-  "http://localhost:5678/webhook/register-project",
-  req.body
-);
-console.log(response.data);
+    // Default values
+    project.status = "pending";
+    project.generatedProject = "";
+    project.completedAt = null;
+
+    await project.save();
 
     res.status(201).json({
       success: true,
@@ -56,16 +53,13 @@ console.log(response.data);
     });
 
   } catch (error) {
-  console.error("ERROR:", error);
-  console.error("Response:", error.response?.data);
-  console.error("Status:", error.response?.status);
+    console.error(error);
 
-  res.status(500).json({
-    success: false,
-    message: error.message,
-    details: error.response?.data,
-  });
-}
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 });
 app.get("/api/reviews", async (req, res) => {
   try {
