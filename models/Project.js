@@ -6,26 +6,47 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     mobile: {
       type: String,
       required: true,
     },
+
     email: {
       type: String,
       required: true,
     },
-   
+
     projectTitle: {
       type: String,
       required: true,
     },
+
     language: {
       type: String,
       required: true,
     },
-   
+    Description: {
+      type: String,
+      required: true,
     },
-  
+    // NEW FIELDS
+    status: {
+      type: String,
+      enum: ["pending", "processing", "completed", "failed"],
+      default: "pending",
+    },
+
+    generatedProject: {
+      type: Object,
+      default: null,
+    },
+
+    completedAt: {
+      type: Date,
+      default: null,
+    },
+  },
   {
     timestamps: true,
   }
